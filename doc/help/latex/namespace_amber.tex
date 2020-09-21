@@ -1,0 +1,130 @@
+\hypertarget{namespace_amber}{}\doxysection{Amber Namespace Reference}
+\label{namespace_amber}\index{Amber@{Amber}}
+
+
+A\+M\+B\+ER A\+PI.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_amber_1_1_aios_attribute}{Aios\+Attribute}}
+\item 
+class \mbox{\hyperlink{class_amber_1_1_aios_group}{Aios\+Group}}
+\item 
+class \mbox{\hyperlink{class_amber_1_1_lookup}{Lookup}}
+\item 
+class \mbox{\hyperlink{class_amber_1_1_motion}{Motion}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673}{Aios\+Error\+Data}} \{ \newline
+\mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673ab035794c29751cb67f5d0a7259106d34}{k\+Error\+None}} = 0x000, 
+\mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a17864267e1d10e88f62f6452a2ce042b}{k\+Error\+Communication}} = 0x001, 
+\mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a8fed0104155286fe2b70fc65bb584326}{k\+Error\+Axis}} = 0x002, 
+\mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673ae90d4346f3df5c240fdf496064cfe3af}{k\+Error\+Encoder}} = 0x003, 
+\newline
+\mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a5f9bce08ca29dddebfcb0f43330c7b57}{k\+Error\+Drive}} = 0x004, 
+\mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a3b1a5b1d86239e1b00e2d48473b20d29}{k\+Error\+Unknow}} = 0x005
+ \}
+\item 
+enum \mbox{\hyperlink{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeb}{Group\+Error\+Data}} \{ \mbox{\hyperlink{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba96290667b4f9ba212ee720a1f8dce89d}{k\+Error\+Actuator}} = 0x100, 
+\mbox{\hyperlink{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba9dd07f084c7114e79f19c461bcb72cff}{k\+Error\+Write\+File}} = 0x101, 
+\mbox{\hyperlink{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba9e2dad0d6010b90cd52c0c63617b1e68}{k\+Error\+Read\+File}} = 0x102, 
+\mbox{\hyperlink{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba8cc5d9302724c4bd8969e6850ff5aeed}{k\+Error\+Step}} = 0x103
+ \}
+\begin{DoxyCompactList}\small\item\em 错误代码 \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716}{Control\+Mode}} \{ \mbox{\hyperlink{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716adade23bdb9fee38aaae336f79de2eefc}{k\+Current\+Mode}} = 1, 
+\mbox{\hyperlink{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716aac37c001828f342c4c32d38d55e9a32c}{k\+Velocity\+Mode}} = 2, 
+\mbox{\hyperlink{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716a08ae323c6d5f7a8cd8b4070103a32dd8}{k\+Position\+Mode}} = 3
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A\+M\+B\+ER A\+PI. 
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673}\label{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673}} 
+\index{Amber@{Amber}!AiosErrorData@{AiosErrorData}}
+\index{AiosErrorData@{AiosErrorData}!Amber@{Amber}}
+\doxysubsubsection{\texorpdfstring{AiosErrorData}{AiosErrorData}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673}{Amber\+::\+Aios\+Error\+Data}}}
+
+An enum type. The documentation block cannot be put after the enum! \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorNone@{kErrorNone}!Amber@{Amber}}\index{Amber@{Amber}!kErrorNone@{kErrorNone}}}\mbox{\Hypertarget{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673ab035794c29751cb67f5d0a7259106d34}\label{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673ab035794c29751cb67f5d0a7259106d34}} 
+k\+Error\+None&通讯错误 ~\newline
+ \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorCommunication@{kErrorCommunication}!Amber@{Amber}}\index{Amber@{Amber}!kErrorCommunication@{kErrorCommunication}}}\mbox{\Hypertarget{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a17864267e1d10e88f62f6452a2ce042b}\label{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a17864267e1d10e88f62f6452a2ce042b}} 
+k\+Error\+Communication&通讯错误 ~\newline
+ \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorAxis@{kErrorAxis}!Amber@{Amber}}\index{Amber@{Amber}!kErrorAxis@{kErrorAxis}}}\mbox{\Hypertarget{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a8fed0104155286fe2b70fc65bb584326}\label{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a8fed0104155286fe2b70fc65bb584326}} 
+k\+Error\+Axis&轴错误 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorEncoder@{kErrorEncoder}!Amber@{Amber}}\index{Amber@{Amber}!kErrorEncoder@{kErrorEncoder}}}\mbox{\Hypertarget{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673ae90d4346f3df5c240fdf496064cfe3af}\label{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673ae90d4346f3df5c240fdf496064cfe3af}} 
+k\+Error\+Encoder&编码器错误 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorDrive@{kErrorDrive}!Amber@{Amber}}\index{Amber@{Amber}!kErrorDrive@{kErrorDrive}}}\mbox{\Hypertarget{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a5f9bce08ca29dddebfcb0f43330c7b57}\label{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a5f9bce08ca29dddebfcb0f43330c7b57}} 
+k\+Error\+Drive&驱动错误 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorUnknow@{kErrorUnknow}!Amber@{Amber}}\index{Amber@{Amber}!kErrorUnknow@{kErrorUnknow}}}\mbox{\Hypertarget{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a3b1a5b1d86239e1b00e2d48473b20d29}\label{namespace_amber_ab451e894d30d7ae5ca691715e1a9d673a3b1a5b1d86239e1b00e2d48473b20d29}} 
+k\+Error\+Unknow&未知错误 \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716}\label{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716}} 
+\index{Amber@{Amber}!ControlMode@{ControlMode}}
+\index{ControlMode@{ControlMode}!Amber@{Amber}}
+\doxysubsubsection{\texorpdfstring{ControlMode}{ControlMode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716}{Amber\+::\+Control\+Mode}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kCurrentMode@{kCurrentMode}!Amber@{Amber}}\index{Amber@{Amber}!kCurrentMode@{kCurrentMode}}}\mbox{\Hypertarget{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716adade23bdb9fee38aaae336f79de2eefc}\label{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716adade23bdb9fee38aaae336f79de2eefc}} 
+k\+Current\+Mode&电流控制模式 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kVelocityMode@{kVelocityMode}!Amber@{Amber}}\index{Amber@{Amber}!kVelocityMode@{kVelocityMode}}}\mbox{\Hypertarget{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716aac37c001828f342c4c32d38d55e9a32c}\label{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716aac37c001828f342c4c32d38d55e9a32c}} 
+k\+Velocity\+Mode&速度控制模式 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kPositionMode@{kPositionMode}!Amber@{Amber}}\index{Amber@{Amber}!kPositionMode@{kPositionMode}}}\mbox{\Hypertarget{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716a08ae323c6d5f7a8cd8b4070103a32dd8}\label{namespace_amber_aab9304e90c9dcf63c18ef0a7e2267716a08ae323c6d5f7a8cd8b4070103a32dd8}} 
+k\+Position\+Mode&位置控制模式 \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeb}\label{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeb}} 
+\index{Amber@{Amber}!GroupErrorData@{GroupErrorData}}
+\index{GroupErrorData@{GroupErrorData}!Amber@{Amber}}
+\doxysubsubsection{\texorpdfstring{GroupErrorData}{GroupErrorData}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeb}{Amber\+::\+Group\+Error\+Data}}}
+
+
+
+错误代码 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorActuator@{kErrorActuator}!Amber@{Amber}}\index{Amber@{Amber}!kErrorActuator@{kErrorActuator}}}\mbox{\Hypertarget{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba96290667b4f9ba212ee720a1f8dce89d}\label{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba96290667b4f9ba212ee720a1f8dce89d}} 
+k\+Error\+Actuator&执行器错误,具体错误请调用\+Get\+Error\+Code函数，具体错误代码请参考\+Aios\+Error\+Data \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorWriteFile@{kErrorWriteFile}!Amber@{Amber}}\index{Amber@{Amber}!kErrorWriteFile@{kErrorWriteFile}}}\mbox{\Hypertarget{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba9dd07f084c7114e79f19c461bcb72cff}\label{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba9dd07f084c7114e79f19c461bcb72cff}} 
+k\+Error\+Write\+File&文件写入错误 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorReadFile@{kErrorReadFile}!Amber@{Amber}}\index{Amber@{Amber}!kErrorReadFile@{kErrorReadFile}}}\mbox{\Hypertarget{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba9e2dad0d6010b90cd52c0c63617b1e68}\label{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba9e2dad0d6010b90cd52c0c63617b1e68}} 
+k\+Error\+Read\+File&文件读取错误 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{kErrorStep@{kErrorStep}!Amber@{Amber}}\index{Amber@{Amber}!kErrorStep@{kErrorStep}}}\mbox{\Hypertarget{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba8cc5d9302724c4bd8969e6850ff5aeed}\label{namespace_amber_a8f5f73fd18f0ed0b788cee4c9f23caeba8cc5d9302724c4bd8969e6850ff5aeed}} 
+k\+Error\+Step&阶跃过大 \\
+\hline
+
+\end{DoxyEnumFields}

@@ -1,0 +1,234 @@
+\begin{theindex}
+
+  \item {AiosErrorData}
+    \subitem {Amber}, \hyperpage{5}
+  \item {Amber}, \hyperpage{5}
+    \subitem {AiosErrorData}, \hyperpage{5}
+    \subitem {ControlMode}, \hyperpage{6}
+    \subitem {GroupErrorData}, \hyperpage{6}
+    \subitem {kCurrentMode}, \hyperpage{6}
+    \subitem {kErrorActuator}, \hyperpage{6}
+    \subitem {kErrorAxis}, \hyperpage{6}
+    \subitem {kErrorCommunication}, \hyperpage{6}
+    \subitem {kErrorDrive}, \hyperpage{6}
+    \subitem {kErrorEncoder}, \hyperpage{6}
+    \subitem {kErrorNone}, \hyperpage{6}
+    \subitem {kErrorReadFile}, \hyperpage{6}
+    \subitem {kErrorStep}, \hyperpage{6}
+    \subitem {kErrorUnknow}, \hyperpage{6}
+    \subitem {kErrorWriteFile}, \hyperpage{6}
+    \subitem {kPositionMode}, \hyperpage{6}
+    \subitem {kVelocityMode}, \hyperpage{6}
+  \item {Amber::AiosAttribute}, \hyperpage{7}
+    \subitem {fw\_version\_}, \hyperpage{7}
+    \subitem {hw\_version\_}, \hyperpage{7}
+    \subitem {ip\_}, \hyperpage{7}
+    \subitem {mac\_address\_}, \hyperpage{8}
+    \subitem {serial\_number\_}, \hyperpage{8}
+  \item {Amber::AiosGroup}, \hyperpage{8}
+    \subitem {Calibration}, \hyperpage{10}
+    \subitem {ClearConfig}, \hyperpage{10}
+    \subitem {ClearError}, \hyperpage{10}
+    \subitem {Disable}, \hyperpage{10}
+    \subitem {Enable}, \hyperpage{11}
+    \subitem {GetActuatorInfo}, \hyperpage{11}
+    \subitem {GetCurrent}, \hyperpage{11}
+    \subitem {GetCurrentBandwidth}, \hyperpage{12}
+    \subitem {GetCurrentLimit}, \hyperpage{12}
+    \subitem {GetCvp}, \hyperpage{13}
+    \subitem {GetErrorCode}, \hyperpage{13}
+    \subitem {GetPosition}, \hyperpage{13}
+    \subitem {GetPostionKp}, \hyperpage{14}
+    \subitem {GetTrapzoidalTrajectoryParameters}, \hyperpage{14}
+    \subitem {GetVelocity}, \hyperpage{15}
+    \subitem {GetVelocityKi}, \hyperpage{15}
+    \subitem {GetVelocityKp}, \hyperpage{16}
+    \subitem {GetVelocityLimit}, \hyperpage{16}
+    \subitem {Reboot}, \hyperpage{17}
+    \subitem {SaveConfig}, \hyperpage{17}
+    \subitem {SetControlMode}, \hyperpage{17}
+    \subitem {SetCurrent}, \hyperpage{18}
+    \subitem {SetCurrentBandwidth}, \hyperpage{18}
+    \subitem {SetCurrentLimit}, \hyperpage{19}
+    \subitem {SetHomePosition}, \hyperpage{19}
+    \subitem {SetPeriodicTime}, \hyperpage{20}
+    \subitem {SetPosition}, \hyperpage{20}
+    \subitem {SetPostionKp}, \hyperpage{21}
+    \subitem {SetTrapzoidalTrajectoryParameters}, \hyperpage{21}
+    \subitem {SetVelocity}, \hyperpage{22}
+    \subitem {SetVelocityKi}, \hyperpage{22}
+    \subitem {SetVelocityKp}, \hyperpage{23}
+    \subitem {SetVelocityLimit}, \hyperpage{23}
+    \subitem {Size}, \hyperpage{24}
+    \subitem {TrapezoidalMove}, \hyperpage{24}
+  \item {Amber::Lookup}, \hyperpage{25}
+    \subitem {GetAvailableList}, \hyperpage{25}
+    \subitem {GetHandlesFromMacAddressList}, \hyperpage{25}
+    \subitem {GetHandlesFromSerialNumberList}, \hyperpage{26}
+  \item {Amber::Motion}, \hyperpage{26}
+    \subitem {MoveStep}, \hyperpage{27}
+    \subitem {MoveTo}, \hyperpage{27}
+    \subitem {RecordPoint}, \hyperpage{28}
+    \subitem {Replay}, \hyperpage{28}
+
+  \indexspace
+
+  \item {Calibration}
+    \subitem {Amber::AiosGroup}, \hyperpage{10}
+  \item {ClearConfig}
+    \subitem {Amber::AiosGroup}, \hyperpage{10}
+  \item {ClearError}
+    \subitem {Amber::AiosGroup}, \hyperpage{10}
+  \item {ControlMode}
+    \subitem {Amber}, \hyperpage{6}
+
+  \indexspace
+
+  \item {Disable}
+    \subitem {Amber::AiosGroup}, \hyperpage{10}
+
+  \indexspace
+
+  \item {Enable}
+    \subitem {Amber::AiosGroup}, \hyperpage{11}
+
+  \indexspace
+
+  \item {fw\_version\_}
+    \subitem {Amber::AiosAttribute}, \hyperpage{7}
+
+  \indexspace
+
+  \item {GetActuatorInfo}
+    \subitem {Amber::AiosGroup}, \hyperpage{11}
+  \item {GetAvailableList}
+    \subitem {Amber::Lookup}, \hyperpage{25}
+  \item {GetCurrent}
+    \subitem {Amber::AiosGroup}, \hyperpage{11}
+  \item {GetCurrentBandwidth}
+    \subitem {Amber::AiosGroup}, \hyperpage{12}
+  \item {GetCurrentLimit}
+    \subitem {Amber::AiosGroup}, \hyperpage{12}
+  \item {GetCvp}
+    \subitem {Amber::AiosGroup}, \hyperpage{13}
+  \item {GetErrorCode}
+    \subitem {Amber::AiosGroup}, \hyperpage{13}
+  \item {GetHandlesFromMacAddressList}
+    \subitem {Amber::Lookup}, \hyperpage{25}
+  \item {GetHandlesFromSerialNumberList}
+    \subitem {Amber::Lookup}, \hyperpage{26}
+  \item {GetPosition}
+    \subitem {Amber::AiosGroup}, \hyperpage{13}
+  \item {GetPostionKp}
+    \subitem {Amber::AiosGroup}, \hyperpage{14}
+  \item {GetTrapzoidalTrajectoryParameters}
+    \subitem {Amber::AiosGroup}, \hyperpage{14}
+  \item {GetVelocity}
+    \subitem {Amber::AiosGroup}, \hyperpage{15}
+  \item {GetVelocityKi}
+    \subitem {Amber::AiosGroup}, \hyperpage{15}
+  \item {GetVelocityKp}
+    \subitem {Amber::AiosGroup}, \hyperpage{16}
+  \item {GetVelocityLimit}
+    \subitem {Amber::AiosGroup}, \hyperpage{16}
+  \item {GroupErrorData}
+    \subitem {Amber}, \hyperpage{6}
+
+  \indexspace
+
+  \item {hw\_version\_}
+    \subitem {Amber::AiosAttribute}, \hyperpage{7}
+
+  \indexspace
+
+  \item {ip\_}
+    \subitem {Amber::AiosAttribute}, \hyperpage{7}
+
+  \indexspace
+
+  \item {kCurrentMode}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorActuator}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorAxis}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorCommunication}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorDrive}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorEncoder}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorNone}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorReadFile}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorStep}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorUnknow}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kErrorWriteFile}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kPositionMode}
+    \subitem {Amber}, \hyperpage{6}
+  \item {kVelocityMode}
+    \subitem {Amber}, \hyperpage{6}
+
+  \indexspace
+
+  \item {mac\_address\_}
+    \subitem {Amber::AiosAttribute}, \hyperpage{8}
+  \item {MoveStep}
+    \subitem {Amber::Motion}, \hyperpage{27}
+  \item {MoveTo}
+    \subitem {Amber::Motion}, \hyperpage{27}
+
+  \indexspace
+
+  \item {Reboot}
+    \subitem {Amber::AiosGroup}, \hyperpage{17}
+  \item {RecordPoint}
+    \subitem {Amber::Motion}, \hyperpage{28}
+  \item {Replay}
+    \subitem {Amber::Motion}, \hyperpage{28}
+
+  \indexspace
+
+  \item {SaveConfig}
+    \subitem {Amber::AiosGroup}, \hyperpage{17}
+  \item {serial\_number\_}
+    \subitem {Amber::AiosAttribute}, \hyperpage{8}
+  \item {SetControlMode}
+    \subitem {Amber::AiosGroup}, \hyperpage{17}
+  \item {SetCurrent}
+    \subitem {Amber::AiosGroup}, \hyperpage{18}
+  \item {SetCurrentBandwidth}
+    \subitem {Amber::AiosGroup}, \hyperpage{18}
+  \item {SetCurrentLimit}
+    \subitem {Amber::AiosGroup}, \hyperpage{19}
+  \item {SetHomePosition}
+    \subitem {Amber::AiosGroup}, \hyperpage{19}
+  \item {SetPeriodicTime}
+    \subitem {Amber::AiosGroup}, \hyperpage{20}
+  \item {SetPosition}
+    \subitem {Amber::AiosGroup}, \hyperpage{20}
+  \item {SetPostionKp}
+    \subitem {Amber::AiosGroup}, \hyperpage{21}
+  \item {SetTrapzoidalTrajectoryParameters}
+    \subitem {Amber::AiosGroup}, \hyperpage{21}
+  \item {SetVelocity}
+    \subitem {Amber::AiosGroup}, \hyperpage{22}
+  \item {SetVelocityKi}
+    \subitem {Amber::AiosGroup}, \hyperpage{22}
+  \item {SetVelocityKp}
+    \subitem {Amber::AiosGroup}, \hyperpage{23}
+  \item {SetVelocityLimit}
+    \subitem {Amber::AiosGroup}, \hyperpage{23}
+  \item {Size}
+    \subitem {Amber::AiosGroup}, \hyperpage{24}
+
+  \indexspace
+
+  \item {TrapezoidalMove}
+    \subitem {Amber::AiosGroup}, \hyperpage{24}
+
+\end{theindex}

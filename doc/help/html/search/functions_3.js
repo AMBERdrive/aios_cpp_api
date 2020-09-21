@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['getactuatorinfo_82',['GetActuatorInfo',['../class_amber_1_1_aios_group.html#a42eb337d32ad227547f01c928e70fab7',1,'Amber::AiosGroup']]],
+  ['getavailablelist_83',['GetAvailableList',['../class_amber_1_1_lookup.html#a15ec79ce5422fd3e2cc6942b776d68b7',1,'Amber::Lookup']]],
+  ['getcurrent_84',['GetCurrent',['../class_amber_1_1_aios_group.html#a15f71dc3656b669515886a23198e4109',1,'Amber::AiosGroup']]],
+  ['getcurrentbandwidth_85',['GetCurrentBandwidth',['../class_amber_1_1_aios_group.html#a3e64d969bba3d243b0bb9703683eeca3',1,'Amber::AiosGroup']]],
+  ['getcurrentlimit_86',['GetCurrentLimit',['../class_amber_1_1_aios_group.html#a6a36fc5cff1c4aae4b1ef283c2d2fcfd',1,'Amber::AiosGroup']]],
+  ['getcvp_87',['GetCvp',['../class_amber_1_1_aios_group.html#a5e98d8ac5b44dcc162c65359d209469d',1,'Amber::AiosGroup']]],
+  ['geterrorcode_88',['GetErrorCode',['../class_amber_1_1_aios_group.html#ae81a708d45feb2a542fe783ff4236a88',1,'Amber::AiosGroup']]],
+  ['gethandlesfrommacaddresslist_89',['GetHandlesFromMacAddressList',['../class_amber_1_1_lookup.html#a4c62e7c81ba878359c8ca15e7fb9ed47',1,'Amber::Lookup']]],
+  ['gethandlesfromserialnumberlist_90',['GetHandlesFromSerialNumberList',['../class_amber_1_1_lookup.html#afeb4f2c82bb117748185684d138b5742',1,'Amber::Lookup']]],
+  ['getposition_91',['GetPosition',['../class_amber_1_1_aios_group.html#ae7bbf38434a54c2cbd5fd5ec606925ef',1,'Amber::AiosGroup']]],
+  ['getpostionkp_92',['GetPostionKp',['../class_amber_1_1_aios_group.html#a8342bcdb2f62fd59811a93d940b1c7ee',1,'Amber::AiosGroup']]],
+  ['getstopsignal_93',['GetStopSignal',['../class_amber_1_1_motion.html#aa549ea9f4016103627c52ba2745867ab',1,'Amber::Motion']]],
+  ['gettrapzoidaltrajectoryparameters_94',['GetTrapzoidalTrajectoryParameters',['../class_amber_1_1_aios_group.html#a30ff8b8fc50bc1a89fe429558df5a3a0',1,'Amber::AiosGroup']]],
+  ['getvelocity_95',['GetVelocity',['../class_amber_1_1_aios_group.html#a46067cf489f578f29494d5a7d4bf400e',1,'Amber::AiosGroup']]],
+  ['getvelocityki_96',['GetVelocityKi',['../class_amber_1_1_aios_group.html#ac35a5d9d90963a2f197056ccf5abd42c',1,'Amber::AiosGroup']]],
+  ['getvelocitykp_97',['GetVelocityKp',['../class_amber_1_1_aios_group.html#ad37eac92aed87abc92bbf526f8997932',1,'Amber::AiosGroup']]],
+  ['getvelocitylimit_98',['GetVelocityLimit',['../class_amber_1_1_aios_group.html#a8796d0764ec6780345da87f96d7a6029',1,'Amber::AiosGroup']]]
+];
