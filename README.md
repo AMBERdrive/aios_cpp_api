@@ -9,10 +9,20 @@ AIOS_Cpp_API
 
 ## Manual
 pdf path: doc/help/aios_cpp_api.pdf
+
 html path: doc/help/html/index.index.html
 
 ## Example
+
+安装依赖项：
 ```sh
+$sudo apt-get install libjsoncpp-dev
+
+```
+运行示例程序：
+
+```sh
+
 $ mkdir build 
 $ cd build
 $ cmake ..
