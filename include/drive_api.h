@@ -15,6 +15,14 @@ using namespace std;
 ///
 namespace Amber{
 
+class CvpFeedback
+{
+public:	
+	double current;/**< 位置(单位:count) 	*/
+	double velocity;/**< 速度(单位:count/s) 	*/
+	double position;/**< 位置(单位:count) 	*/
+};
+
 /** An enum type.
 * The documentation block cannot be put after the enum!
 */
@@ -90,7 +98,10 @@ private:
 	bool GetMotionControllerConfig(vector <double> &kp,vector <int> index,int mode);
 	bool SetMotionControllerConfig(vector <double> kp , vector <int> index,int mode);
 	bool GetMotorConfig(vector <double> &kp , vector <int> index,int mode);	
-	bool SetMotorConfig(vector <double> kp , vector <int> index,int mode);
+	bool SetMotorConfig(vector <double> kp , vector <int> index,int mode);	
+	void RequsestCvpFeedback();
+	void CvpFeedback(vector <double> &pos,vector <double> &vel,vector <double> &current);
+	bool ResponseCvpRequest(vector <Amber::CvpFeedback> &fb,vector <int> index);
 
 public:
 	
@@ -199,6 +210,16 @@ public:
 	 *	 @retval false 失败
 	 */
 	bool SetPosition(const vector <double> pos,vector <double> &ret_pos);
+
+	/**
+	 * @brief 使轴组运动到目标位置并返回当前位置
+	 * @param[in] pos 目标位置(单位:count)
+	 * @param[out] fb 当前位置、电流和速度
+	 * @return 执行成功与否
+	 *	 @retval true 成功 
+	 *	 @retval false 失败
+	 */
+	bool SetPosition(const vector <double> pos,vector <Amber::CvpFeedback> &fb );
 
 	/**
 	 * @brief 使执行器达到目标速度
@@ -435,7 +456,6 @@ public:
 
 	/**
 	 * @brief 使轴组步进一段位移
-	 *
 	 * @param group 轴组对象
 	 * @param pos 位移 单位（count）
 	 * @return 返回说明
@@ -446,7 +466,6 @@ public:
 
 	/**
 	 * @brief 使轴组运行到目标点
-	 *
 	 * @param group 轴组对象
 	 * @param pos 目标点 单位（count）
 	 * @return 返回说明
@@ -457,7 +476,6 @@ public:
 
 	/**
 	 * @brief 记录示教的轨迹
-	 *
 	 * @param group 轴组对象
 	 * @param file_path 轨迹文件
 	 * @return 返回说明
@@ -468,7 +486,6 @@ public:
 
 	/**
 	 * @brief 再现记录的轨迹
-	 *
 	 * @param group 轴组对象
 	 * @param file_path 轨迹文件
 	 * @return 返回说明
@@ -488,29 +505,26 @@ public:
 	~Lookup();
 
 	/**
-	 * @brief 获取可用的执行器对象
-	 *
-	 * @return 返回说明
+	 * @brief 获取可用的轴组对象
+	 * @return 轴组对象
 	 *	 @retval NULL 失败 
 	 *	 @retval 非NUll 成功 
 	 */
 	std::shared_ptr <AiosGroup> GetAvailableList();
 
 	/**
-	 * @brief 获取可用的执行器对象
-	 *
-	 * @param serial_number 输入的序列号
-	 * @return 返回说明
+	 * @brief 按执行器序列号获取轴组对象
+	 * @param[in] serial_number 输入的序列号
+	 * @return 轴组对象
 	 *	 @retval NULL 失败 
 	 *	 @retval 非NUll 成功 
 	 */
 	std::shared_ptr <AiosGroup> GetHandlesFromSerialNumberList(const std::vector <string> serial_number);
 
 	/**
-	 * @brief 获取可用的执行器对象
-	 *
-	 * @param mac_address 输入的mac地址
-	 * @return 返回说明
+	 * @brief 按mac地址获取轴组对象
+	 * @param[in] mac_address 输入的mac地址
+	 * @return 轴组对象
 	 *	 @retval NULL 失败 
 	 *	 @retval 非NUll 成功 
 	 */
