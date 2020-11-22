@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "drive_api.h"
 
 int main(int argc, char *argv[])  
@@ -8,18 +9,21 @@ int main(int argc, char *argv[])
 	std::shared_ptr <Amber::AiosGroup> group = lookup.GetAvailableList();
 	if (!group)
 	{
-		cout << "EVENT: No device found on network" << endl;
+		cout << "\033[31m" << "INFO: No device found on network" << endl;
 		return -1;
 	}
-	cout << "EVENT: "<< group->Size() << "devices found on network" << endl;
+
+	cout << "\033[32m" << "INFO: "<< group->Size() << " devices found on network" << endl;
 
 	auto actuator_info = group->GetActuatorInfo();
 
 	for (auto it = actuator_info.begin(); it != actuator_info.end(); it++)
 	{
-		cout << "EVENT: find server ip = " << it->ip_ << endl;
-		cout << "            serial number = " << it->serial_number_  << endl;
-		cout << "            mac address = " << it->mac_address_  << endl;
+		cout << "\033[34m" << "{" << endl;
+		cout << "\033[34m" << "    ip = " << it->ip_ << endl;
+		cout << "\033[34m" << "    serial number = " << it->serial_number_  << endl;
+		cout << "\033[34m" << "    mac address = " << it->mac_address_  << endl;
+		cout << "\033[34m" << "}" << endl;
   	}
 
 	return 0;
