@@ -1,65 +1,19 @@
-#include <string.h>
 #include <iostream>
 #include <fstream>
-#include <thread>
 #include <jsoncpp/json/json.h>
 
 #include "drive_api.h"
 
 using namespace std;
 
-static void PressEnterToExit()
-{
-    int c;
-
-	cout << "Press enter to exit." << endl;
-
-    while( getchar() != '\n')
-	{
-		if (Amber::Motion::GetStopSignal())
-		{
-			return;
-		}
-	}
-	Amber::Motion::SetStopSignal();
-}
-
-void WorkThread(Amber::AiosGroup *unit)
-{
-	Amber::Motion::RecordPoint(unit);
-}
-
-
 int main(int argc, char *argv[])  
 {	  
-	
 	Amber::Lookup lookup;
 
-	std::vector < string > serial_number;
-	
-	Json::Reader reader;
 	Json::Value root;
-	 
-	ifstream in("config.json", ios::binary);
-	 
-	if (!in.is_open())
-	{
-		return 0;
-	}
-	 
-	if (reader.parse(in, root))
-	{
-		for (int i=0;i<root.size();i++)
-		{
-			serial_number.push_back(root[i]["serial_number"].asString());
-		}
-	}
-	else
-	{
-		return 0;
-	}
+	Json::Value element;
 
-	std::shared_ptr <Amber::AiosGroup> group = lookup.GetHandlesFromSerialNumberList(serial_number);
+	std::shared_ptr <Amber::AiosGroup> group = lookup.GetAvailableList();
 	if (!group)
 	{
 		cout << "\033[31m" << "INFO: No device found on network" << endl;
@@ -77,7 +31,17 @@ int main(int argc, char *argv[])
 		cout << "\033[34m" << "    serial number = " << it->serial_number_  << endl;
 		cout << "\033[34m" << "    mac address = " << it->mac_address_  << endl;
 		cout << "\033[34m" << "}" << endl;
+
+		element["serial_number"]  = Json::Value(it->serial_number_);
+		element["mac_address"]	= Json::Value(it->mac_address_);
+		root.append(element);
   	}
+
+	Json::StyledWriter writer;
+	ofstream os;
+	os.open("config.json");
+	os << writer.write(root);
+	os.close();
 
 	if(!group->Calibration())
 	{
@@ -91,18 +55,9 @@ int main(int argc, char *argv[])
  		return -1;
 	}
 
-	if(!group->Disable())
-	{
-		cout << "\033[31m" << "INFO: " << GetSystemError() << endl;
-		return -1;
-	}
-
-	cout << "\033[33m" << "Recording..." << endl;
-	std::thread thread_running(WorkThread,group.get());
-
-	PressEnterToExit();
-
-	thread_running.join();
 	return 0;
 }
+
+
+
 

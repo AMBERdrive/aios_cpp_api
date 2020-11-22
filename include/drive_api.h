@@ -6,6 +6,9 @@
 #include <vector>
 #include <iostream>
 #include <jsoncpp/json/json.h> 
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/Eigen>
+
 using namespace std;
 
 
@@ -90,6 +93,7 @@ private:
 	void RecvFrom(Json::Value recv_data[] ,int port=2334);
 	void ClearSocketBuffer();
 	bool ResponseCvpRequest(vector <double> &pos,vector <double> &vel,vector <double> &current,vector <int> index);
+	bool ResponseCvpRequest(Eigen::VectorXd &pos,Eigen::VectorXd &vel,Eigen::VectorXd &current,vector <int> index);
 	void RequsestPosition(vector <int> index);
 	bool ResponsePositionRequest(vector <double> &pos,vector <int> index);
 	bool IsEncoderReady(bool &flag,vector <int> index);
@@ -102,6 +106,7 @@ private:
 	void RequsestCvpFeedback();
 	void CvpFeedback(vector <double> &pos,vector <double> &vel,vector <double> &current);
 	bool ResponseCvpRequest(vector <Amber::CvpFeedback> &fb,vector <int> index);
+	void RecvFromNoneM(vector <int> index,Json::Value recv_data[] ,int port);
 
 public:
 	
@@ -168,6 +173,19 @@ public:
 	bool GetCvp(vector <double> &pos,vector <double> &vel,vector <double> &current);
 
 	/**
+	 * @brief 获取当前位置、速度和电流
+	 *
+	 * @param[out] pos 当前位置(单位:count)
+	 * @param[out] vel 当前速度(单位:count/s)
+	 * @param[out] current 当前电流(单位:A)
+	 * @return 执行成功与否
+	 *	 @retval true 成功 
+	 *	 @retval false 失败
+	 */
+	bool GetCvp(Eigen::VectorXd & pos, Eigen::VectorXd & vel, Eigen::VectorXd & current);
+
+
+	/**
 	 * @brief 使能
 	 * @return 执行成功与否
 	 *	 @retval true 成功 
@@ -191,6 +209,15 @@ public:
 	 *	 @retval false 失败
 	 */
 	bool SetHomePosition();
+
+	/**
+	 * @brief 使轴组运动到目标位置
+	 * @param[in] pos 目标位置(单位:count)
+	 * @return 执行成功与否
+	 *	 @retval true 成功 
+	 *	 @retval false 失败
+	 */
+	bool SetPosition(Eigen::VectorXd pos);
 
 	/**
 	 * @brief 使轴组运动到目标位置
@@ -424,6 +451,13 @@ public:
 	vector <int> GetErrorCode();
 
 	/**
+	 * @brief 获取报错信息
+	 * @return 轴组内各执行器错误信息
+	 */
+	vector <string> GetErrorDetails();
+
+
+	/**
 	 * @brief 清除轴组内的报错信息
 	 * @attention 确定解除错误源头后清除才有效
 	 */
@@ -482,7 +516,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval 非0 错误码 
 	 */
-	static int RecordPoint(AiosGroup * group, std::string file_path="data.txt");	
+	static int RecordPoint(AiosGroup * group, const std::string file_path="data.txt");	
 
 	/**
 	 * @brief 再现记录的轨迹
@@ -492,7 +526,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval 非0 错误码 
 	 */
-	static int Replay(AiosGroup * group,const std::string file_path="data.txt");
+	static int Replay(AiosGroup * group,const std::string file_path="data.txt",const int count=0);
 };
 
 class Lookup
@@ -532,5 +566,17 @@ public:
 };
 
 }
+
+void GetRealtimePos(Eigen::VectorXd &pos);
+void RefreshState(Eigen::VectorXd pos);
+void RefreshState(vector    <double> pos);
+void InvTransDof7(Eigen::VectorXd &pos);
+void InvTransDof7(std::vector<double> &pos);
+void TransDof7(std::vector<double> &pos);
+void TransDof7(Eigen::VectorXd &pos);
+void SetReplayCount(int count);
+string GetSystemError();
+void PrintErrorDetails(vector <string> error_code);
+
 
 #endif
