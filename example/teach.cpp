@@ -26,7 +26,10 @@ static void PressEnterToExit()
 
 void WorkThread(Amber::AiosGroup *unit)
 {
-	Amber::Motion::RecordPoint(unit);
+	if(Amber::Motion::RecordPoint(unit) == -1)
+	{
+		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
+	}
 }
 
 
@@ -79,21 +82,21 @@ int main(int argc, char *argv[])
 		cout << "\033[34m" << "}" << endl;
   	}
 
-	if(!group->Calibration())
+	if(group->Calibration() == -1)
 	{
-		cout << "\033[31m" << "INFO: " << GetSystemError() << endl;
+		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
  		return -1;
 	}
 
-	if(!group->SaveConfig())
+	if(group->SaveConfig() == -1)
 	{
-		cout << "\033[31m" << "INFO: " << GetSystemError() << endl;
+		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
  		return -1;
 	}
 
-	if(!group->Disable())
+	if(group->Disable() == -1)
 	{
-		cout << "\033[31m" << "INFO: " << GetSystemError() << endl;
+		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
 		return -1;
 	}
 

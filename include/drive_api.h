@@ -92,20 +92,20 @@ private:
 	void SendTo(const Json::Value send_data[],int port=2334);
 	void RecvFrom(Json::Value recv_data[] ,int port=2334);
 	void ClearSocketBuffer();
-	bool ResponseCvpRequest(vector <double> &pos,vector <double> &vel,vector <double> &current,vector <int> index);
-	bool ResponseCvpRequest(Eigen::VectorXd &pos,Eigen::VectorXd &vel,Eigen::VectorXd &current,vector <int> index);
+	int ResponseCvpRequest(vector <double> &pos,vector <double> &vel,vector <double> &current,vector <int> index);
+	int ResponseCvpRequest(Eigen::VectorXd &pos,Eigen::VectorXd &vel,Eigen::VectorXd &current,vector <int> index);
 	void RequsestPosition(vector <int> index);
-	bool ResponsePositionRequest(vector <double> &pos,vector <int> index);
-	bool IsEncoderReady(bool &flag,vector <int> index);
+	int ResponsePositionRequest(vector <double> &pos,vector <int> index);
+	int IsEncoderReady(bool &flag,vector <int> index);
 	void SendTo(vector <int> index,const Json::Value send_data[],int port);
 	void RecvFrom(vector <int> index,Json::Value recv_data[] ,int port);
-	bool GetMotionControllerConfig(vector <double> &kp,vector <int> index,int mode);
-	bool SetMotionControllerConfig(vector <double> kp , vector <int> index,int mode);
-	bool GetMotorConfig(vector <double> &kp , vector <int> index,int mode);	
-	bool SetMotorConfig(vector <double> kp , vector <int> index,int mode);	
+	int GetMotionControllerConfig(vector <double> &kp,vector <int> index,int mode);
+	int SetMotionControllerConfig(vector <double> kp , vector <int> index,int mode);
+	int GetMotorConfig(vector <double> &kp , vector <int> index,int mode);	
+	int SetMotorConfig(vector <double> kp , vector <int> index,int mode);	
 	void RequsestCvpFeedback();
 	void CvpFeedback(vector <double> &pos,vector <double> &vel,vector <double> &current);
-	bool ResponseCvpRequest(vector <Amber::CvpFeedback> &fb,vector <int> index);
+	int ResponseCvpRequest(vector <Amber::CvpFeedback> &fb,vector <int> index);
 	void RecvFromNoneM(vector <int> index,Json::Value recv_data[] ,int port);
 
 public:
@@ -137,28 +137,28 @@ public:
 	 * @brief 获取当前位置
 	 * @param[out] pos 当前位置(单位:count)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetPosition(vector <double> &pos);
+	int GetPosition(vector <double> &pos);
 
 	/**
 	 * @brief 获取当前速度
 	 * @param[out] vel 当前速度(单位:count/s)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetVelocity(vector <double> &vel);
+	int GetVelocity(vector <double> &vel);
 
 	/**
 	 * @brief 获取当前电流
 	 * @param[out] ccurrent 当前电流(单位:A)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetCurrent(vector <double> &current);
+	int GetCurrent(vector <double> &current);
 
 	/**
 	 * @brief 获取当前位置、速度和电流
@@ -167,10 +167,10 @@ public:
 	 * @param[out] vel 当前速度(单位:count/s)
 	 * @param[out] current 当前电流(单位:A)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetCvp(vector <double> &pos,vector <double> &vel,vector <double> &current);
+	int GetCvp(vector <double> &pos,vector <double> &vel,vector <double> &current);
 
 	/**
 	 * @brief 获取当前位置、速度和电流
@@ -179,109 +179,109 @@ public:
 	 * @param[out] vel 当前速度(单位:count/s)
 	 * @param[out] current 当前电流(单位:A)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetCvp(Eigen::VectorXd & pos, Eigen::VectorXd & vel, Eigen::VectorXd & current);
+	int GetCvp(Eigen::VectorXd & pos, Eigen::VectorXd & vel, Eigen::VectorXd & current);
 
 
 	/**
 	 * @brief 使能
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool Enable();
+	int Enable();
 
 	/**
 	 * @brief 失能
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool Disable();
+	int Disable();
 	
 	/**
 	 * @brief 把当前点设置为零点
 	 * @attention 请尽量在失能状态下设置零位
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetHomePosition();
+	int SetHomePosition();
 
 	/**
 	 * @brief 使轴组运动到目标位置
 	 * @param[in] pos 目标位置(单位:count)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetPosition(Eigen::VectorXd pos);
+	int SetPosition(Eigen::VectorXd pos);
 
 	/**
 	 * @brief 使轴组运动到目标位置
 	 * @param[in] pos 目标位置(单位:count)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetPosition(const vector <double> pos);
+	int SetPosition(const vector <double> pos);
 
 	/**
 	 * @brief 使轴组运动到目标位置并返回当前位置
 	 * @param[in] pos 目标位置(单位:count)
 	 * @param[out] ret_pos 当前位置(单位:count)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetPosition(const vector <double> pos,vector <double> &ret_pos);
+	int SetPosition(const vector <double> pos,vector <double> &ret_pos);
 
 	/**
 	 * @brief 使轴组运动到目标位置并返回当前位置
 	 * @param[in] pos 目标位置(单位:count)
 	 * @param[out] fb 当前位置、电流和速度
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetPosition(const vector <double> pos,vector <Amber::CvpFeedback> &fb );
+	int SetPosition(const vector <double> pos,vector <Amber::CvpFeedback> &fb );
 
 	/**
 	 * @brief 使执行器达到目标速度
 	 * @param[in] vel 目标速度(单位:count/s)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetVelocity(const vector <double> vel);
+	int SetVelocity(const vector <double> vel);
 
 	/**
 	 * @brief 使执行器达到目标电流
 	 * @param[in] current 目标电流(单位:A)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetCurrent(const vector <double> current);
+	int SetCurrent(const vector <double> current);
 
 	/**
 	 * @brief 执行器标定
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool Calibration();
+	int Calibration();
 
 	/**
 	 * @brief 梯形加减速运动到指定点
 	 * @param[in] pos 目标位置(单位:count)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool TrapezoidalMove(const vector <double> pos);
+	int TrapezoidalMove(const vector <double> pos);
 
 	/**
 	 * @brief 设置梯形加减速参数
@@ -289,10 +289,10 @@ public:
 	 * @param[in] dec 最大减速度(单位:count/s)
 	 * @param[in] vel 最大速度(单位:count/s)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetTrapzoidalTrajectoryParameters(const vector <double> acc,const vector <double> dec,const vector <double> vel);
+	int SetTrapzoidalTrajectoryParameters(const vector <double> acc,const vector <double> dec,const vector <double> vel);
 
 	/**
 	 * @brief 获取梯形加减速参数
@@ -300,143 +300,143 @@ public:
 	 * @param[out] dec 最大减速度(单位:count/s)
 	 * @param[out] vel 最大速度(单位:count/s)
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetTrapzoidalTrajectoryParameters(vector <double> &acc,vector <double> &dec,vector <double> &vel);
+	int GetTrapzoidalTrajectoryParameters(vector <double> &acc,vector <double> &dec,vector <double> &vel);
 
 	/**
 	 * @brief 设置运动控制模式
 	 * @param[in] mode 注意mode应和index维数一致， kCurrentMode:电流环 kVelocityMode:速度环 kPositionMode:位置环
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetControlMode(const vector <ControlMode> mode);
+	int SetControlMode(const vector <ControlMode> mode);
 
 	/**
 	 * @brief 获取指定执行器位置环比例量
 	 * @param[out] kp 位置环比例量
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetPostionKp(vector <double> & kp);
+	int GetPostionKp(vector <double> & kp);
 
 	/**
 	 * @brief 获取指定执行器速度环比例量
 	 * @param[out] kp 速度环比例量
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetVelocityKp(vector <double> &kp);
+	int GetVelocityKp(vector <double> &kp);
 
 	/**
 	 * @brief 获取指定执行器速度环积分量
 	 * @param[out] ki 速度环积分量
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetVelocityKi(vector <double> &ki);
+	int GetVelocityKi(vector <double> &ki);
 
 	/**
 	 * @brief 获取指定执行器最大速度
 	 * @param[out] limit 最大速度
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetVelocityLimit(vector <double> &limit);
+	int GetVelocityLimit(vector <double> &limit);
 
 	/**
 	 * @brief 设置指定执行器位置环比例量
 	 * @param[in] kp 位置环比例量
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetPostionKp(const vector <double> kp);
+	int SetPostionKp(const vector <double> kp);
 
 	/**
 	 * @brief 设置指定执行器速度环比例量
 	 * @param[in] kp 速度环比例量
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetVelocityKp(const vector <double> kp);
+	int SetVelocityKp(const vector <double> kp);
 
 	/**
 	 * @brief 设置指定执行器速度环积分量
 	 * @param[in] ki 速度环积分量
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetVelocityKi(const vector <double> ki);
+	int SetVelocityKi(const vector <double> ki);
 
 	/**
 	 * @brief 设置指定执行器最大速度
 	 * @param[in] limit 最大速度
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetVelocityLimit(const vector <double> limit);
+	int SetVelocityLimit(const vector <double> limit);
 
 	/**
 	 * @brief 获取指定执行器最大电流
 	 * @param[out] limit 最大电流
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetCurrentLimit(vector <double> &limit);
+	int GetCurrentLimit(vector <double> &limit);
 
 	/**
 	 * @brief 获取指定执行器最大电流环带宽
 	 * @param[out] bandwidth 最大电流环带宽
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool GetCurrentBandwidth(vector <double> &bandwidth);
+	int GetCurrentBandwidth(vector <double> &bandwidth);
 
 	/**
 	 * @brief 设置指定执行器最大电流
 	 * @param[in] limit 最大电流
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetCurrentLimit(const vector <double> limit);
+	int SetCurrentLimit(const vector <double> limit);
 
 	/**
 	 * @brief 设置指定执行器最大电流环带宽
 	 * @param[in] bandwidth 最大电流环带宽
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SetCurrentBandwidth(const vector <double> bandwidth);
+	int SetCurrentBandwidth(const vector <double> bandwidth);
 
 	/**
 	 * @brief 清除修改的配置
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool ClearConfig();
+	int ClearConfig();
 
 	/**
 	 * @brief 保存配置
 	 * @return 执行成功与否
-	 *	 @retval true 成功 
-	 *	 @retval false 失败
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
 	 */
-	bool SaveConfig();
+	int SaveConfig();
 
 	/**
 	 * @brief 重启
@@ -565,6 +565,12 @@ public:
 	std::shared_ptr <AiosGroup> GetHandlesFromMacAddressList(const std::vector <string> mac_address);
 };
 
+/**
+ * @brief 获取系统错误
+ * @return 错误描述
+ */
+string GetSystemError();
+
 }
 
 void GetRealtimePos(Eigen::VectorXd &pos);
@@ -575,7 +581,6 @@ void InvTransDof7(std::vector<double> &pos);
 void TransDof7(std::vector<double> &pos);
 void TransDof7(Eigen::VectorXd &pos);
 void SetReplayCount(int count);
-string GetSystemError();
 void PrintErrorDetails(vector <string> error_code);
 
 

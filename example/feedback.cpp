@@ -35,7 +35,7 @@ void WorkThread(Amber::AiosGroup *group)
 
 	while ( !Amber::Motion::GetStopSignal() )
 	{	
-		if (!group->GetCvp(pos,vel,current) )
+		if (group->GetCvp(pos,vel,current) == -1)
 		{
 			return;
 		}
@@ -100,21 +100,21 @@ int main(int argc, char *argv[])
 		cout << "\033[34m" << "}" << endl;
   	}
 
-	if(!group->Calibration())
+	if(group->Calibration() == -1)
 	{
-		cout << "\033[31m" << "INFO: " << GetSystemError() << endl;
+		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
 		return -1;
 	}
 
-	if(!group->SaveConfig())
+	if(group->SaveConfig() == -1)
 	{
-		cout << "\033[31m" << "INFO: " << GetSystemError() << endl;
+		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
  		return -1;
 	}
 
-	if(!group->Disable())
+	if(group->Disable() == -1)
 	{
-		cout << "\033[31m" << "INFO: " << GetSystemError() << endl;
+		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
 		return -1;
 	}
 
