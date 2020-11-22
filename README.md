@@ -5,7 +5,7 @@ AIOS_Cpp_API
 
 本工程为 amber aios c++ 接口
 
-适用环境：Linux x86-64
+适用环境：Linux armhf
 
 ## Manual
 pdf path: doc/help/aios_cpp_api.pdf
