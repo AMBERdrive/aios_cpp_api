@@ -25,26 +25,23 @@ static void PressEnterToExit()
 
 void WorkThread(Amber::AiosGroup *group)
 {	
-	vector <double> pos(group->Size());
-	vector <double> vel(group->Size());
-	vector <double> current(group->Size());
-
+	Amber::CvpFeedbackData fb;
 	Amber::Motion::InitStopSignal();
 
 	cout << "\033[33m" << "Start" << endl;
 
 	while ( !Amber::Motion::GetStopSignal() )
 	{	
-		if (group->GetCvp(pos,vel,current) == -1)
+		if (group->GetCvp(fb) == -1)
 		{
 			return;
 		}
 
 		printf("\rpos : ");
 
-		for (auto it = pos.begin(); it != pos.end(); it++)
+		for (int i=0; i<group->Size(); i++)
 		{
-			printf("%.1f ",*it);
+			printf("%.1f ",fb.pos(i));
 		}
 
 		fflush(stdout);

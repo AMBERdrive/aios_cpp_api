@@ -18,36 +18,12 @@ using namespace std;
 ///
 namespace Amber{
 
-class CvpFeedback
+class TrapzoidalTrajectoryParameters
 {
-public:	
-	double current;/**< 位置(单位:count) 	*/
-	double velocity;/**< 速度(单位:count/s) 	*/
-	double position;/**< 位置(单位:count) 	*/
+	Eigen::VectorXd acc;
+	Eigen::VectorXd dec;
+	Eigen::VectorXd vel;
 };
-
-/** An enum type.
-* The documentation block cannot be put after the enum!
-*/
-enum AiosErrorData
-{
-	kErrorNone = 0x000, 		  /**< 通讯错误 	*/
-	kErrorCommunication = 0x001 , /**< 通讯错误  */
-	kErrorAxis = 0x002 ,		  /**< 轴错误 */
-	kErrorEncoder = 0x003 , 	  /**< 编码器错误 */
-	kErrorDrive = 0x004 ,		  /**< 驱动错误 */
-	kErrorUnknow = 0x005 ,		  /**< 未知错误 */
-};
-
-/** @brief 错误代码 */
-enum GroupErrorData
-{
-	kErrorActuator = 0x100 ,/**< 执行器错误,具体错误请调用GetErrorCode函数，具体错误代码请参考AiosErrorData*/
-	kErrorWriteFile = 0x101 ,/**< 文件写入错误 */
-	kErrorReadFile = 0x102 ,/**< 文件读取错误 */
-	kErrorStep = 0x103 ,/**< 阶跃过大 */
-};
-
 
 enum ControlMode
 {
@@ -71,6 +47,13 @@ public:
 	AiosAttribute& operator = (const AiosAttribute& attribute);
 };
 
+class CvpFeedbackData
+{
+public:
+	Eigen::VectorXd pos;
+	Eigen::VectorXd vel;
+	Eigen::VectorXd current;
+};
 
 class AiosGroup final
 {
@@ -90,30 +73,35 @@ private:
 
 	void CommunicationOnce(const Json::Value send_data,Json::Value &recv_data,int axis,int port=2334);
 	void SendTo(const Json::Value send_data[],int port=2334);
-	void RecvFrom(Json::Value recv_data[] ,int port=2334);
-	void ClearSocketBuffer();
-	int ResponseCvpRequest(vector <double> &pos,vector <double> &vel,vector <double> &current,vector <int> index);
-	int ResponseCvpRequest(Eigen::VectorXd &pos,Eigen::VectorXd &vel,Eigen::VectorXd &current,vector <int> index);
-	void RequsestPosition(vector <int> index);
-	int ResponsePositionRequest(vector <double> &pos,vector <int> index);
-	int IsEncoderReady(bool &flag,vector <int> index);
 	void SendTo(vector <int> index,const Json::Value send_data[],int port);
+
+	void RecvFrom(Json::Value recv_data[] ,int port=2334);
 	void RecvFrom(vector <int> index,Json::Value recv_data[] ,int port);
-	int GetMotionControllerConfig(vector <double> &kp,vector <int> index,int mode);
-	int SetMotionControllerConfig(vector <double> kp , vector <int> index,int mode);
-	int GetMotorConfig(vector <double> &kp , vector <int> index,int mode);	
-	int SetMotorConfig(vector <double> kp , vector <int> index,int mode);	
-	void RequsestCvpFeedback();
-	void CvpFeedback(vector <double> &pos,vector <double> &vel,vector <double> &current);
-	int ResponseCvpRequest(vector <Amber::CvpFeedback> &fb,vector <int> index);
-	void RecvFromNoneM(vector <int> index,Json::Value recv_data[] ,int port);
+	void RecvFromNoneM(Json::Value recv_data[] ,int port);
+
+	void ClearSocketBuffer();
+	int IsEncoderReady(bool &flag,vector <int> index);
+	int GetMotionControllerConfig(Eigen::VectorXd &kp,vector <int> index,int mode);
+	int SetMotionControllerConfig(Eigen::VectorXd kp , vector <int> index,int mode);
+	int GetMotorConfig(Eigen::VectorXd &kp , vector <int> index,int mode);	
+	int SetMotorConfig(Eigen::VectorXd kp , vector <int> index,int mode);	
 
 public:
 	
 	AiosGroup();
 	~AiosGroup();
+	void RequsestCvpFeedback();
+
+	int ResponseCvpRequest(	 CvpFeedbackData &fb);
 
 	void Initialize(const vector <AiosAttribute> attribute);
+	int DisableVelocityRampMode();
+	int SetRampedVelocity(const Eigen::VectorXd vel,CvpFeedbackData &fb);
+	int EnableVelocityRampMode();
+	int SetCurrentRequest(const Eigen::VectorXd current);
+	int SetIo(int value);
+	int SetRampedVelocity(const Eigen::VectorXd vel);
+	int GetControlMode();
 
 	/**
 	 * @brief 获得轴组内执行器的个数
@@ -128,19 +116,13 @@ public:
 	vector <AiosAttribute> GetActuatorInfo();
 
 	/**
-	 * @brief 设置通信间隔时间
-	 * @param[in] t 单位毫秒 默认为5
-	 */
-	void SetPeriodicTime(const int t=5);
-
-	/**
 	 * @brief 获取当前位置
 	 * @param[out] pos 当前位置(单位:count)
 	 * @return 执行成功与否
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetPosition(vector <double> &pos);
+	int GetPosition(Eigen::VectorXd &pos);
 
 	/**
 	 * @brief 获取当前速度
@@ -149,7 +131,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetVelocity(vector <double> &vel);
+	int GetVelocity(Eigen::VectorXd &vel);
 
 	/**
 	 * @brief 获取当前电流
@@ -158,7 +140,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetCurrent(vector <double> &current);
+	int GetCurrent(Eigen::VectorXd &current);
 
 	/**
 	 * @brief 获取当前位置、速度和电流
@@ -170,20 +152,15 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetCvp(vector <double> &pos,vector <double> &vel,vector <double> &current);
+	int GetCvp(	 CvpFeedbackData &fb);
 
 	/**
-	 * @brief 获取当前位置、速度和电流
-	 *
-	 * @param[out] pos 当前位置(单位:count)
-	 * @param[out] vel 当前速度(单位:count/s)
-	 * @param[out] current 当前电流(单位:A)
+	 * @brief 是否使能
 	 * @return 执行成功与否
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetCvp(Eigen::VectorXd & pos, Eigen::VectorXd & vel, Eigen::VectorXd & current);
-
+	int IsEnable(vector <bool> &is_enabled);
 
 	/**
 	 * @brief 使能
@@ -217,36 +194,17 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetPosition(Eigen::VectorXd pos);
+	int SetPosition(const Eigen::VectorXd pos);
 
 	/**
-	 * @brief 使轴组运动到目标位置
-	 * @param[in] pos 目标位置(单位:count)
-	 * @return 执行成功与否
-	 *	 @retval 0 成功 
-	 *	 @retval -1 失败
-	 */
-	int SetPosition(const vector <double> pos);
-
-	/**
-	 * @brief 使轴组运动到目标位置并返回当前位置
-	 * @param[in] pos 目标位置(单位:count)
-	 * @param[out] ret_pos 当前位置(单位:count)
-	 * @return 执行成功与否
-	 *	 @retval 0 成功 
-	 *	 @retval -1 失败
-	 */
-	int SetPosition(const vector <double> pos,vector <double> &ret_pos);
-
-	/**
-	 * @brief 使轴组运动到目标位置并返回当前位置
+	 * @brief 使轴组运动到目标位置并返回当前位置、速度、电流
 	 * @param[in] pos 目标位置(单位:count)
 	 * @param[out] fb 当前位置、电流和速度
 	 * @return 执行成功与否
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetPosition(const vector <double> pos,vector <Amber::CvpFeedback> &fb );
+	int SetPosition(const Eigen::VectorXd pos,CvpFeedbackData &fb);
 
 	/**
 	 * @brief 使执行器达到目标速度
@@ -255,7 +213,17 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetVelocity(const vector <double> vel);
+	int SetVelocity(const Eigen::VectorXd vel);
+
+	/**
+	 * @deprecated
+	 * @brief 使执行器达到目标速度
+	 * @param[in] vel 目标速度(单位:count/s)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int SetVelocity(const Eigen::VectorXd vel,CvpFeedbackData &fb);
 
 	/**
 	 * @brief 使执行器达到目标电流
@@ -264,7 +232,16 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetCurrent(const vector <double> current);
+	int SetCurrent(const Eigen::VectorXd current);
+
+	/**
+	 * @brief 使执行器达到目标电流
+	 * @param[in] current 目标电流(单位:A)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int SetCurrent(const Eigen::VectorXd current,CvpFeedbackData &fb);
 
 	/**
 	 * @brief 执行器标定
@@ -281,7 +258,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int TrapezoidalMove(const vector <double> pos);
+	int TrapezoidalMove( const Eigen::VectorXd pos);
 
 	/**
 	 * @brief 设置梯形加减速参数
@@ -292,7 +269,34 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetTrapzoidalTrajectoryParameters(const vector <double> acc,const vector <double> dec,const vector <double> vel);
+	int SetTrapzoidalTrajectoryParameters(const Eigen::VectorXd acc,const Eigen::VectorXd dec,const Eigen::VectorXd vel);
+
+	/**
+	 * @brief 设置梯形加减速参数
+	 * @param[in] acc 最大加速度(单位:count/s)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int SetTrapzoidalTrajectoryAcc(const Eigen::VectorXd acc);
+
+	/**
+	 * @brief 设置梯形加减速参数
+	 * @param[in] dec 最大减速度(单位:count/s)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int SetTrapzoidalTrajectoryDec(const Eigen::VectorXd dec);
+
+	/**
+	 * @brief 设置梯形加减速参数
+	 * @param[in] vel 最大速度(单位:count/s)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int SetTrapzoidalTrajectoryVel(const Eigen::VectorXd vel);
 
 	/**
 	 * @brief 获取梯形加减速参数
@@ -303,7 +307,34 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetTrapzoidalTrajectoryParameters(vector <double> &acc,vector <double> &dec,vector <double> &vel);
+	int GetTrapzoidalTrajectoryParameters(Eigen::VectorXd &acc,Eigen::VectorXd &dec,Eigen::VectorXd &vel);
+
+	/**
+	 * @brief 获取梯形加减速参数
+	 * @param[out] acc 最大加速度(单位:count/s)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int GetTrapzoidalTrajectoryAcc(Eigen::VectorXd &acc);
+
+	/**
+	 * @brief 获取梯形加减速参数
+	 * @param[out] dec 最大减速度(单位:count/s)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int GetTrapzoidalTrajectoryDec(Eigen::VectorXd &dec);
+
+	/**
+	 * @brief 获取梯形加减速参数
+	 * @param[out] vel 最大速度(单位:count/s)
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int GetTrapzoidalTrajectoryVel(Eigen::VectorXd &vel);
 
 	/**
 	 * @brief 设置运动控制模式
@@ -312,7 +343,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetControlMode(const vector <ControlMode> mode);
+	int SetControlMode(const ControlMode mode);
 
 	/**
 	 * @brief 获取指定执行器位置环比例量
@@ -321,7 +352,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetPostionKp(vector <double> & kp);
+	int GetPostionKp(Eigen::VectorXd & kp);
 
 	/**
 	 * @brief 获取指定执行器速度环比例量
@@ -330,7 +361,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetVelocityKp(vector <double> &kp);
+	int GetVelocityKp(Eigen::VectorXd &kp);
 
 	/**
 	 * @brief 获取指定执行器速度环积分量
@@ -339,7 +370,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetVelocityKi(vector <double> &ki);
+	int GetVelocityKi(Eigen::VectorXd &ki);
 
 	/**
 	 * @brief 获取指定执行器最大速度
@@ -348,7 +379,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetVelocityLimit(vector <double> &limit);
+	int GetVelocityLimit(Eigen::VectorXd &limit);
 
 	/**
 	 * @brief 设置指定执行器位置环比例量
@@ -357,7 +388,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetPostionKp(const vector <double> kp);
+	int SetPostionKp(const Eigen::VectorXd kp);
 
 	/**
 	 * @brief 设置指定执行器速度环比例量
@@ -366,7 +397,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetVelocityKp(const vector <double> kp);
+	int SetVelocityKp(const Eigen::VectorXd kp);
 
 	/**
 	 * @brief 设置指定执行器速度环积分量
@@ -375,7 +406,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetVelocityKi(const vector <double> ki);
+	int SetVelocityKi(const Eigen::VectorXd ki);
 
 	/**
 	 * @brief 设置指定执行器最大速度
@@ -384,7 +415,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetVelocityLimit(const vector <double> limit);
+	int SetVelocityLimit(const Eigen::VectorXd limit);
 
 	/**
 	 * @brief 获取指定执行器最大电流
@@ -393,7 +424,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetCurrentLimit(vector <double> &limit);
+	int GetCurrentLimit(Eigen::VectorXd &limit);
 
 	/**
 	 * @brief 获取指定执行器最大电流环带宽
@@ -402,7 +433,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int GetCurrentBandwidth(vector <double> &bandwidth);
+	int GetCurrentBandwidth(Eigen::VectorXd &bandwidth);
 
 	/**
 	 * @brief 设置指定执行器最大电流
@@ -411,7 +442,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetCurrentLimit(const vector <double> limit);
+	int SetCurrentLimit(const Eigen::VectorXd limit);
 
 	/**
 	 * @brief 设置指定执行器最大电流环带宽
@@ -420,7 +451,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval -1 失败
 	 */
-	int SetCurrentBandwidth(const vector <double> bandwidth);
+	int SetCurrentBandwidth(const Eigen::VectorXd bandwidth);
 
 	/**
 	 * @brief 清除修改的配置
@@ -446,12 +477,6 @@ public:
 
 	/**
 	 * @brief 获取报错信息
-	 * @return 轴组内各执行器错误代码
-	 */
-	vector <int> GetErrorCode();
-
-	/**
-	 * @brief 获取报错信息
 	 * @return 轴组内各执行器错误信息
 	 */
 	vector <string> GetErrorDetails();
@@ -462,6 +487,17 @@ public:
 	 * @attention 确定解除错误源头后清除才有效
 	 */
 	void ClearError();
+	
+	/**
+	 * @brief 固件升级
+	 * @return 执行成功与否
+	 *	 @retval 0 成功 
+	 *	 @retval -1 失败
+	 */
+	int FirmwareUpdate();
+
+public:	
+	int SetPositionRequest(Eigen::VectorXd pos);
 	
 };
 
@@ -496,7 +532,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval 非0 错误码 
 	 */
-	static int MoveStep(AiosGroup * unit, const std::vector <double> pos);
+	static int MoveStep(AiosGroup * unit, const Eigen::VectorXd pos);
 
 	/**
 	 * @brief 使轴组运行到目标点
@@ -506,7 +542,7 @@ public:
 	 *	 @retval 0 成功 
 	 *	 @retval 非0 错误码 
 	 */
-	static int MoveTo(AiosGroup * group,const std::vector <double> pos);
+	static int MoveTo(AiosGroup * group,const Eigen::VectorXd pos);
 
 	/**
 	 * @brief 记录示教的轨迹
@@ -572,16 +608,5 @@ public:
 string GetSystemError();
 
 }
-
-void GetRealtimePos(Eigen::VectorXd &pos);
-void RefreshState(Eigen::VectorXd pos);
-void RefreshState(vector    <double> pos);
-void InvTransDof7(Eigen::VectorXd &pos);
-void InvTransDof7(std::vector<double> &pos);
-void TransDof7(std::vector<double> &pos);
-void TransDof7(Eigen::VectorXd &pos);
-void SetReplayCount(int count);
-void PrintErrorDetails(vector <string> error_code);
-
 
 #endif

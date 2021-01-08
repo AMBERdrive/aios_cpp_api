@@ -32,7 +32,6 @@ void WorkThread(Amber::AiosGroup *unit)
 	}
 }
 
-
 int main(int argc, char *argv[])  
 {	  
 	
