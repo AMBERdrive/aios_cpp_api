@@ -25,7 +25,7 @@ static void PressEnterToExit()
 }
 
 void WorkThread(Amber::AiosGroup *unit)
-{	
+{
 	if( Amber::Motion::Replay(unit) == -1)
 	{
 		cout << "\033[31m" << "INFO: " << Amber::GetSystemError() << endl;
