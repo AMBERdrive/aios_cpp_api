@@ -25,7 +25,7 @@ static void PressEnterToExit()
 
 void WorkThread(Amber::AiosGroup *group)
 {	
-	Amber::CvpFeedbackData fb;
+	Amber::CvpData fb;
 	Amber::Motion::InitStopSignal();
 
 	cout << "\033[33m" << "Start" << endl;
